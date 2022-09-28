@@ -308,6 +308,7 @@ class ApiController extends Controller
                'from' => 'John Doe',
                'text' => 'Your account Deleted'
            ]);
+           User::find($id)->delete();
        }
 
         return response()->json([
