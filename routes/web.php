@@ -20,6 +20,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+Route::get('edit/{id}', [UserController::class, 'show'])->middleware(['auth'])->name('edit');
+Route::patch('update/{id}', [UserController::class, 'update'])->middleware(['auth'])->name('update');
 Route::get('delete/{id}', [UserController::class, 'destroy'])->middleware(['auth'])->name('delete');
 
 require __DIR__.'/auth.php';

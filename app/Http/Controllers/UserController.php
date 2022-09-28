@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+
 class UserController extends Controller
 {
     /**
@@ -46,7 +48,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user =User::find($id);
+        return view('edit',compact('user'));
     }
 
     /**
@@ -69,7 +72,34 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'password' => 'required|min:6',
+            'photo'=>'required'
+
+        ]);
+
+
+        if($request->file()) {
+
+            $fileName = time().'_'.$request->photo->getClientOriginalName();
+            $request->file('photo')->storeAs('User', $fileName, 'public');
+            $image = $fileName;
+            $data= $request->only('name','email','phone','password');
+            $data['password']= bcrypt($request->password);
+            User::where('id',$id)->update($data +['photo'=>@$image]);
+        }
+        else{
+            $data= $request->only('name','email','phone','password');
+            $data['password']= bcrypt($request->password);
+            User::where('id',$id)->update($data);
+        }
+
+
+
+        return redirect()->back()->with('message',"Updated Succssfully");
     }
 
     /**

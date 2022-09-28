@@ -46,7 +46,7 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{Auth::user()->email}}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{Auth::user()->phone}}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><img src="{{asset("/storage/User/".Auth::user()->photo)}}"></td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><a href="{{route('delete',Auth::user()->id)}}">Delete</a></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><a  href="{{route('edit',Auth::user()->id)}}">Edit</a><a style="color:red;margin-left:5px" href="{{route('delete',Auth::user()->id)}}">Delete</a></td>
 
                                         </tr>
 
