@@ -92,8 +92,8 @@ class UserController extends Controller
             User::where('id',$id)->update($data +['photo'=>@$image]);
         }
         else{
-            $data= $request->only('name','email','phone','password');
-            $data['password']= bcrypt($request->password);
+            $data= $request->only('name','email','phone');
+
             User::where('id',$id)->update($data);
         }
 
